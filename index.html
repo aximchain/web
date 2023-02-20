@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Add ASC to Metamask</title>
+    <link rel="stylesheet" type="text/css" href="styles.css" />
+  </head>
+  <body>
+    <button id="connect-button">Add ASC to Metamask</button>
+    <script>
+      document.getElementById('connect-button').addEventListener('click', event => {
+        let account;
+        let button = event.target;
+
+          ethereum.request({
+            method: 'wallet_addEthereumChain', 
+            params: [{
+              chainId: "0x2ca",
+              rpcUrls: ["https://peer-testnet.aximchain.com"],
+              chainName: "AXC Smart Chain Testnet",
+              iconUrls: ["https://github.com/aximchain/web/raw/main/aximcoin.jpg"],
+              nativeCurrency: {
+                name: "Aximcoin",
+                symbol: "AXC",
+                decimals: 18
+              },
+            }]  
+          }).then(result => {
+            button.textContent = "ASC Smart Chain Added"
+          });
+    });
+    </script>  
+  </body>
+</html>
