@@ -8,6 +8,14 @@
   <body>
     <button id="connect-button">Add ASC to Metamask</button>
     <script>
+      window.onload = function() {
+        if (typeof window.ethereum === 'undefined') {
+          document.getElementById('connect-button').textContent = 'MetaMask is not installed';
+        } else {
+          console.log('MetaMask is installed ' + window.ethereum.isMetaMask() + ' connected: ' + window.ethereum.isConnected());
+        }
+      }
+
       document.getElementById('connect-button').addEventListener('click', event => {
         let button = event.target;
 
