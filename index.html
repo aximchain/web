@@ -7,11 +7,21 @@
   </head>
   <body>
     <button id="connect-button">Add ASC to Metamask</button>
+    <script src="https://browser.sentry-cdn.com/7.38.0/bundle.tracing.min.js"
+  integrity="sha384-1+NVxJuzrJqJNxlOk23abXGMOTFCVL2ijvbPWADLNAye3nGSVKDqxT6vQqZVWRMd" crossorigin="anonymous"></script>
     <script>
+      Sentry.init({
+      dsn: "https://ffdc9c8e9b6a454ab9a70877604ae55f@o4504730382368768.ingest.sentry.io/4504730384007168",
+      integrations: [new Sentry.BrowserTracing()],
+      tracesSampleRate: 1.0,
+      });
+      
       window.onload = function() {
         if (typeof window.ethereum === 'undefined') {
           document.getElementById('connect-button').textContent = 'MetaMask is not installed';
+          Sentry.captureMessage("Ethereum undefined " + window.ethereum, "error");
         } else {
+          Sentry.captureMessage('MetaMask is installed ' + window.ethereum.isMetaMask + ' connected: ' + window.ethereum.isConnected(), "info");
           console.log('MetaMask is installed ' + window.ethereum.isMetaMask + ' connected: ' + window.ethereum.isConnected());
         }
       }
@@ -34,9 +44,12 @@
               },
             }]  
           }).then(result => {
+            Sentry.captureMessage('MetaMask Add Success', "info");
             button.textContent = "ASC Smart Chain Added"
+          }).catch(error => {
+            Sentry.captureException(new Error('request error ' + error))
           });
-    });
+       });
     </script>  
   </body>
 </html>
