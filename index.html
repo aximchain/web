@@ -12,7 +12,7 @@
         if (typeof window.ethereum === 'undefined') {
           document.getElementById('connect-button').textContent = 'MetaMask is not installed';
         } else {
-          console.log('MetaMask is installed ' + window.ethereum.isMetaMask() + ' connected: ' + window.ethereum.isConnected());
+          console.log('MetaMask is installed ' + window.ethereum.isMetaMask + ' connected: ' + window.ethereum.isConnected());
         }
       }
 
